@@ -58,18 +58,15 @@
 		62A580D32755A85400BB609A /* VirtualTourist2 */ = {
 			isa = PBXGroup;
 			children = (
+				62A580E52755A85600BB609A /* Info.plist */,
+				62A580D42755A85400BB609A /* AppDelegate.swift */,
+				62A580D62755A85400BB609A /* SceneDelegate.swift */,
+				62A580EF2755A92300BB609A /* Model */,
 				62A580EE2755A8D600BB609A /* Controller */,
 				62A580ED2755A8CB00BB609A /* View */,
 				62A580EC2755A8BB00BB609A /* Assets */,
 				62A580EB2755A8A900BB609A /* Storyboard */,
-				62A580D42755A85400BB609A /* AppDelegate.swift */,
-				62A580D62755A85400BB609A /* SceneDelegate.swift */,
 				62A580D82755A85400BB609A /* ViewController.swift */,
-				62A580DA2755A85400BB609A /* Main.storyboard */,
-				62A580E02755A85600BB609A /* Assets.xcassets */,
-				62A580E22755A85600BB609A /* LaunchScreen.storyboard */,
-				62A580E52755A85600BB609A /* Info.plist */,
-				62A580DD2755A85400BB609A /* VirtualTourist2.xcdatamodeld */,
 			);
 			path = VirtualTourist2;
 			sourceTree = "<group>";
@@ -77,6 +74,8 @@
 		62A580EB2755A8A900BB609A /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				62A580DA2755A85400BB609A /* Main.storyboard */,
+				62A580E22755A85600BB609A /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -84,6 +83,7 @@
 		62A580EC2755A8BB00BB609A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				62A580E02755A85600BB609A /* Assets.xcassets */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -100,6 +100,14 @@
 			children = (
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		62A580EF2755A92300BB609A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				62A580DD2755A85400BB609A /* VirtualTourist2.xcdatamodeld */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
