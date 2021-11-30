@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		62A580D52755A85400BB609A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A580D42755A85400BB609A /* AppDelegate.swift */; };
 		62A580D72755A85400BB609A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A580D62755A85400BB609A /* SceneDelegate.swift */; };
-		62A580D92755A85400BB609A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A580D82755A85400BB609A /* ViewController.swift */; };
 		62A580DC2755A85400BB609A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62A580DA2755A85400BB609A /* Main.storyboard */; };
 		62A580DF2755A85400BB609A /* VirtualTourist2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62A580DD2755A85400BB609A /* VirtualTourist2.xcdatamodeld */; };
 		62A580E12755A85600BB609A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62A580E02755A85600BB609A /* Assets.xcassets */; };
@@ -24,7 +23,6 @@
 		62A580D12755A85400BB609A /* VirtualTourist2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62A580D42755A85400BB609A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62A580D62755A85400BB609A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		62A580D82755A85400BB609A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		62A580DB2755A85400BB609A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		62A580DE2755A85400BB609A /* VirtualTourist2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist2.xcdatamodel; sourceTree = "<group>"; };
 		62A580E02755A85600BB609A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 				62A580ED2755A8CB00BB609A /* View */,
 				62A580EC2755A8BB00BB609A /* Assets */,
 				62A580EB2755A8A900BB609A /* Storyboard */,
-				62A580D82755A85400BB609A /* ViewController.swift */,
 			);
 			path = VirtualTourist2;
 			sourceTree = "<group>";
@@ -201,7 +198,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62A580D92755A85400BB609A /* ViewController.swift in Sources */,
 				62A580F72755AA7B00BB609A /* FlickrNetworkClient.swift in Sources */,
 				62A580D52755A85400BB609A /* AppDelegate.swift in Sources */,
 				62A580D72755A85400BB609A /* SceneDelegate.swift in Sources */,
