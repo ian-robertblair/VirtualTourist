@@ -19,6 +19,10 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jiN-0d-JW4">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Fn4-yI-IRX" appends="YES" id="DOh-tv-RFv"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Jyg-ef-PE7"/>
@@ -32,12 +36,15 @@
                     </view>
                     <connections>
                         <outlet property="map" destination="jiN-0d-JW4" id="h6e-8R-mPq"/>
-                        <segue destination="nIW-sa-jyl" kind="popoverPresentation" identifier="picturesViewSegue" id="OTh-6m-s5t">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
+                        <segue destination="nIW-sa-jyl" kind="show" identifier="picturesViewSegue" id="OTh-6m-s5t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KLb-bM-pMW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="Fn4-yI-IRX">
+                    <connections>
+                        <action selector="longpressDetected:" destination="lB8-VA-jcb" id="VCb-QM-uzq"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-186.40000000000001" y="239.73013493253376"/>
         </scene>
@@ -108,6 +115,7 @@
                             <constraint firstItem="w98-0m-LAS" firstAttribute="top" secondItem="xbd-z6-gfh" secondAttribute="bottom" constant="5" id="zCX-Zy-1Uv"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="fxC-0O-JOh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kqs-9d-WcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

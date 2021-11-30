@@ -27,7 +27,6 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         map.delegate = self
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         dataManager = appDelegate.persistentContainer.viewContext
@@ -54,20 +53,20 @@ class MapViewController: UIViewController {
             databaseLocations = result as! [NSManagedObject]
             defaultLog.info("Database Locations Fetched.")
             for eachLocation in databaseLocations {
-                let name = eachLocation.value(forKey: "locationName") as! String
+                let title = eachLocation.value(forKey: "title") as! String
                 let longitude = eachLocation.value(forKey: "longitude") as! Double
                 let latitude = eachLocation.value(forKey: "latitude") as! Double
-                defaultLog.info("Database Entry.  Name: \(name)  Longitude: \(longitude)   Latitude: \(latitude)")
+                defaultLog.info("Database Entry.  Name: \(title)  Longitude: \(longitude)   Latitude: \(latitude)")
             }
-            
         } catch {
             defaultLog.info("Failed to retrieve locations from database.  \(error.localizedDescription)")
         }
     }
     
-    //MARK: - Preare for Segue
+    
+    //MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "PictureViewSegue" {
+        if segue.identifier == "picturesViewSegue" {
             let controller = segue.destination as! PicturesViewController
             controller.location = location
             controller.dataManager = dataManager
@@ -75,7 +74,14 @@ class MapViewController: UIViewController {
     }
     
     //MARK: -  Actions
-    
+    @IBAction func longpressDetected(_ sender: UILongPressGestureRecognizer) {
+        defaultLog.info("Long press detected.")
+        let point = MKPointAnnotation()
+        let touchPoint = sender.location(in: map)
+        let touchMapCoordinate = map.convert(touchPoint, toCoordinateFrom: map)
+        point.coordinate = CLLocationCoordinate2D(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+        map.addAnnotation(point)
+    }
 }
 
 //MARK: - Extensions
