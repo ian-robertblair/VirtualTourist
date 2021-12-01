@@ -17,6 +17,7 @@
 		62A580F32755AA3600BB609A /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A580F22755AA3600BB609A /* PicturesViewController.swift */; };
 		62A580F72755AA7B00BB609A /* FlickrNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A580F52755AA7B00BB609A /* FlickrNetworkClient.swift */; };
 		62A580F82755AA7B00BB609A /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A580F62755AA7B00BB609A /* SearchResponse.swift */; };
+		62A580FA27577A1D00BB609A /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A580F927577A1D00BB609A /* PicturesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		62A580F22755AA3600BB609A /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
 		62A580F52755AA7B00BB609A /* FlickrNetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrNetworkClient.swift; sourceTree = "<group>"; };
 		62A580F62755AA7B00BB609A /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		62A580F927577A1D00BB609A /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		62A580ED2755A8CB00BB609A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				62A580F927577A1D00BB609A /* PicturesCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			files = (
 				62A580F72755AA7B00BB609A /* FlickrNetworkClient.swift in Sources */,
 				62A580D52755A85400BB609A /* AppDelegate.swift in Sources */,
+				62A580FA27577A1D00BB609A /* PicturesCollectionViewCell.swift in Sources */,
 				62A580D72755A85400BB609A /* SceneDelegate.swift in Sources */,
 				62A580F82755AA7B00BB609A /* SearchResponse.swift in Sources */,
 				62A580F12755AA2400BB609A /* MapViewController.swift in Sources */,

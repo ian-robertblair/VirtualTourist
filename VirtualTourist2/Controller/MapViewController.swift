@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     let defaultLog = Logger()
     var dataManager:NSManagedObjectContext!
     var databaseLocations = [NSManagedObject]()
-    var location = ""
+    var location = CLLocationCoordinate2D()
     
     // MARK: -  Outlets
     @IBOutlet weak var map: MKMapView!
@@ -37,7 +37,6 @@ class MapViewController: UIViewController {
         super.viewWillAppear(animated)
         for eachLocation in databaseLocations {
             let point = MKPointAnnotation()
-            point.title = eachLocation.value(forKey: "title") as? String
             let longitude = eachLocation.value(forKey: "longitude") as! Double
             let latitude = eachLocation.value(forKey: "latitude") as! Double
             point.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -53,10 +52,9 @@ class MapViewController: UIViewController {
             databaseLocations = result as! [NSManagedObject]
             defaultLog.info("Database Locations Fetched.")
             for eachLocation in databaseLocations {
-                let title = eachLocation.value(forKey: "title") as! String
                 let longitude = eachLocation.value(forKey: "longitude") as! Double
                 let latitude = eachLocation.value(forKey: "latitude") as! Double
-                defaultLog.info("Database Entry.  Name: \(title)  Longitude: \(longitude)   Latitude: \(latitude)")
+                defaultLog.info("Database Entry.  Longitude: \(longitude)   Latitude: \(latitude)")
             }
         } catch {
             defaultLog.info("Failed to retrieve locations from database.  \(error.localizedDescription)")
@@ -76,17 +74,32 @@ class MapViewController: UIViewController {
     //MARK: -  Actions
     @IBAction func longpressDetected(_ sender: UILongPressGestureRecognizer) {
         defaultLog.info("Long press detected.")
+        
+        //Add map point
         let point = MKPointAnnotation()
         let touchPoint = sender.location(in: map)
         let touchMapCoordinate = map.convert(touchPoint, toCoordinateFrom: map)
         point.coordinate = CLLocationCoordinate2D(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
         map.addAnnotation(point)
+        self.location = touchMapCoordinate
+        
+        //Add location to database
+        let newEntity = NSEntityDescription.insertNewObject(forEntityName: "Pin", into: dataManager)
+        newEntity.setValue(touchMapCoordinate.latitude, forKey: "latitude")
+        newEntity.setValue(touchMapCoordinate.longitude, forKey: "longitude")
+        do {
+            try self.dataManager.save()
+            defaultLog.info("Saved to database: lon: \(touchMapCoordinate.longitude), lat: \(touchMapCoordinate.latitude)")
+        } catch {
+            defaultLog.info("Failed to save location.  \(error.localizedDescription)")
+        }
     }
 }
 
 //MARK: - Extensions
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        //TODO: - remove callout
         guard annotation is MKPointAnnotation else {return nil}
         let identifier = "Annotation"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -100,7 +113,7 @@ extension MapViewController: MKMapViewDelegate {
         return annotationView
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        performSegue(withIdentifier: "savedPicturesSegue", sender: self)
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        performSegue(withIdentifier: "picturesViewSegue", sender: self)
     }
 }
