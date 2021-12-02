@@ -15,15 +15,17 @@ class PicturesViewController: UIViewController {
 
     
     // MARK Properties
+    let defaultLog = Logger()
     var dataManager:NSManagedObjectContext!
     var location:CLLocationCoordinate2D!
-    //var images = [UIImage]()
     var images = [UIImage](repeating: UIImage(named: "NewYork1.png")!, count: 20)
     
     
     // MARK Outlets
     @IBOutlet weak var picturesCollection: UICollectionView!
-    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var downloadMessageLabel: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
+    
     // MARK Life Cycle
     
     override func viewDidLoad() {
@@ -31,7 +33,43 @@ class PicturesViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         picturesCollection.dataSource = self
-        //picturesCollection.delegate = self
+        downloadMessageLabel.text = ""
+        progressBar.isHidden = true
+        progressBar.progress = 0.0
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let picturesExtist = false
+        
+        if picturesExtist {
+            //TODO: - write code to replace placeholders with pictures from the database as they are retrived.
+        } else {
+            //TODO: - Set label to "downloading...", make progressbar visable, download flickr picture list, get the pictures, add to progressBar for each picture downloaded, store them in db, update the UI, clear label, hide progressBar
+            downloadMessageLabel.text = "Downloading..."
+            progressBar.isHidden = false
+            FlickrClient.searchByLocation(url: FlickrClient.Endpoints.searchLocation( location.longitude, location.latitude).url) { flickrPictures, error in
+                if let error = error {
+                    self.defaultLog.info("Failed to download picture URLS.  \(error.localizedDescription)")
+                }
+                
+                if let flickrPictures = flickrPictures {
+                    for flickrPicture in flickrPictures.photos.photo {
+                        self.defaultLog.info("Picture id: \(flickrPicture.id) name: \(flickrPicture.title)")
+                        FlickrClient.getPicture(url: FlickrClient.Endpoints.getPicture(flickrPicture.server, flickrPicture.id, flickrPicture.secret).url) { data, error in
+                            //TODO: - Add to database
+                            print("Picture Size:", data!)
+                            DispatchQueue.main.async {
+                                                        self.progressBar.progress += 0.02
+                                                    }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     // MARK Functions

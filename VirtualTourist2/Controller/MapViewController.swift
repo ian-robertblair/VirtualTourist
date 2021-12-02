@@ -81,7 +81,6 @@ class MapViewController: UIViewController {
         let touchMapCoordinate = map.convert(touchPoint, toCoordinateFrom: map)
         point.coordinate = CLLocationCoordinate2D(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
         map.addAnnotation(point)
-        self.location = touchMapCoordinate
         
         //Add location to database
         let newEntity = NSEntityDescription.insertNewObject(forEntityName: "Pin", into: dataManager)
@@ -114,6 +113,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        location = view.annotation!.coordinate
         performSegue(withIdentifier: "picturesViewSegue", sender: self)
     }
 }

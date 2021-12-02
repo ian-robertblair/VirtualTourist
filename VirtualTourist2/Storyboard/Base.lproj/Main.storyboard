@@ -141,7 +141,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="fxC-0O-JOh"/>
                     <connections>
+                        <outlet property="downloadMessageLabel" destination="z6o-op-Urn" id="KGI-ke-SVP"/>
                         <outlet property="picturesCollection" destination="gye-fL-u1c" id="qGu-Wp-RpZ"/>
+                        <outlet property="progressBar" destination="w98-0m-LAS" id="9Gn-Qr-YQh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kqs-9d-WcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

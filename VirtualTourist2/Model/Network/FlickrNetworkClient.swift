@@ -16,7 +16,6 @@ class FlickrClient {
     static var radius = 16  //Radiaus around latitude/longitude is 16km or 10 miles
     
     enum Endpoints {
-        
         case searchLocation(Double,Double)
         case getPicture(String, String, String)
         
@@ -25,7 +24,7 @@ class FlickrClient {
             //case .searchLocation(let longitude, let latitude): return "https://flickr.photos.search?api_key=\(apiKey)&radius=\(String(radius))&lon=\(longitude)&lat=\(latitude)"
     
             case .searchLocation(let longitude, let latitude): return "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(FlickrClient.apiKey)&lat=\(latitude)&lon=\(longitude)&radius=\(FlickrClient.radius)&format=json&nojsoncallback=1"
-            case .getPicture(let serverId, let pictureId, let secret): return "https://live.staticflickr.com/{\(serverId)}/{\(pictureId)}_{\(secret)}.jpg" //returns 500pix pic
+            case .getPicture(let serverId, let pictureId, let secret): return "https://live.staticflickr.com/\(serverId)/\(pictureId)_\(secret).jpg"
             }
         }
         
@@ -58,6 +57,21 @@ class FlickrClient {
     }
     
     class func getPicture(url: URL, completion: @escaping (Data?, Error?) -> Void) {
-        
+        self.defaultLog.info("getPicture Called, \(url)")
+        let task = URLSession.shared.downloadTask(with: url) { (location, response, error) in
+            guard let location = location else {
+                defaultLog.info("getPicture: location is nil")
+                return
+            }
+            do {
+                let image =  try Data(contentsOf: location)
+                completion(image, nil)
+                defaultLog.info("Picture Downloaded: \(url)")
+            } catch {
+                completion(nil, error)
+                defaultLog.info("Error with picture. \(error.localizedDescription)")
+            }
+        }
+        task.resume()
     }
 }
