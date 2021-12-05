@@ -46,7 +46,7 @@ class FlickrClient {
             let decoder = JSONDecoder()
             do {
                 let downloadedPictures = try decoder.decode(SearchResponse.self, from: data)
-                self.defaultLog.info("Pictures downloaded. \(data)")
+                self.defaultLog.info("Picture URLs downloaded. \(data)")
                 completion(downloadedPictures, nil)
             } catch {
                 //defaultLog.info("Error decoding JSON. \(error.localizedDescription)")

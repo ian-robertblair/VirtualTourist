@@ -66,8 +66,17 @@ class MapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "picturesViewSegue" {
             let controller = segue.destination as! PicturesViewController
-            controller.location = location
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Pin")
+            fetchRequest.predicate = NSPredicate(format: "latitude between {\(location.latitude - 0.001), \(location.latitude + 0.001)}")
+            var pin = NSManagedObject()
+            do {
+                let result = try dataManager.fetch(fetchRequest)
+                pin = result[0] as! NSManagedObject
+            } catch {
+                defaultLog.info("Couldn't fetch PIN.")
+            }
             controller.dataManager = dataManager
+            controller.pin = pin
         }
     }
     
@@ -86,6 +95,7 @@ class MapViewController: UIViewController {
         let newEntity = NSEntityDescription.insertNewObject(forEntityName: "Pin", into: dataManager)
         newEntity.setValue(touchMapCoordinate.latitude, forKey: "latitude")
         newEntity.setValue(touchMapCoordinate.longitude, forKey: "longitude")
+        newEntity.setValue(false, forKey: "hasPhotos")
         do {
             try self.dataManager.save()
             defaultLog.info("Saved to database: lon: \(touchMapCoordinate.longitude), lat: \(touchMapCoordinate.latitude)")
@@ -98,14 +108,12 @@ class MapViewController: UIViewController {
 //MARK: - Extensions
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        //TODO: - remove callout
         guard annotation is MKPointAnnotation else {return nil}
         let identifier = "Annotation"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.canShowCallout = true
-            annotationView!.rightCalloutAccessoryView = UIButton(type: .infoLight)
+            annotationView!.canShowCallout = false
         } else {
             annotationView!.annotation = annotation
         }

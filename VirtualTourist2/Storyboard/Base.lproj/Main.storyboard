@@ -121,6 +121,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="New Collection"/>
+                                <connections>
+                                    <action selector="newCollectionButtonTapped:" destination="nIW-sa-jyl" eventType="touchUpInside" id="yGx-fG-NAc"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4Og-aS-rmj"/>
