@@ -40,7 +40,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KLb-bM-pMW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="Fn4-yI-IRX">
+                <pongPressGestureRecognizer allowableMovement="1" minimumPressDuration="1" id="Fn4-yI-IRX">
                     <connections>
                         <action selector="longpressDetected:" destination="lB8-VA-jcb" id="VCb-QM-uzq"/>
                     </connections>

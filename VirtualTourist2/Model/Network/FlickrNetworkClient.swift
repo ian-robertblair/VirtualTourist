@@ -12,18 +12,15 @@ class FlickrClient {
     
     static var defaultLog = Logger()
     static var apiKey = "42681d9a4364a54042c67a5f528a8790"
-    static var apiSecret = "40d66340a7a0fe47"
     static var radius = 16  //Radiaus around latitude/longitude is 16km or 10 miles
     
     enum Endpoints {
-        case searchLocation(Double,Double)
+        case searchLocation(Double,Double, Int)
         case getPicture(String, String, String)
         
         var stringValue:String {
             switch self {
-            //case .searchLocation(let longitude, let latitude): return "https://flickr.photos.search?api_key=\(apiKey)&radius=\(String(radius))&lon=\(longitude)&lat=\(latitude)"
-    
-            case .searchLocation(let longitude, let latitude): return "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(FlickrClient.apiKey)&lat=\(latitude)&lon=\(longitude)&radius=\(FlickrClient.radius)&format=json&nojsoncallback=1"
+            case .searchLocation(let longitude, let latitude, let page): return "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(FlickrClient.apiKey)&lat=\(latitude)&lon=\(longitude)&radius=\(FlickrClient.radius)&page=\(page)&format=json&nojsoncallback=1"
             case .getPicture(let serverId, let pictureId, let secret): return "https://live.staticflickr.com/\(serverId)/\(pictureId)_\(secret).jpg"
             }
         }
@@ -49,7 +46,6 @@ class FlickrClient {
                 self.defaultLog.info("Picture URLs downloaded. \(data)")
                 completion(downloadedPictures, nil)
             } catch {
-                //defaultLog.info("Error decoding JSON. \(error.localizedDescription)")
                 completion(nil, error)
             }
         }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="picture" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <relationship name="pin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="photo" inverseEntity="Pin"/>
     </entity>
@@ -9,14 +10,9 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="photo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="pin" inverseEntity="Photo"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="latitude"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Photo" positionX="227.069580078125" positionY="-49.40728759765625" width="128" height="73"/>
+        <element name="Photo" positionX="227.069580078125" positionY="-49.40728759765625" width="128" height="74"/>
         <element name="Pin" positionX="-63" positionY="-18" width="128" height="89"/>
     </elements>
 </model>

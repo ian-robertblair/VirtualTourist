@@ -12,7 +12,7 @@ import CoreData
 import OSLog
 
 class MapViewController: UIViewController {
-
+    
     // MARK: -  Properties
     let defaultLog = Logger()
     var dataManager:NSManagedObjectContext!
@@ -83,25 +83,28 @@ class MapViewController: UIViewController {
     //MARK: -  Actions
     @IBAction func longpressDetected(_ sender: UILongPressGestureRecognizer) {
         defaultLog.info("Long press detected.")
-        
-        //Add map point
-        let point = MKPointAnnotation()
-        let touchPoint = sender.location(in: map)
-        let touchMapCoordinate = map.convert(touchPoint, toCoordinateFrom: map)
-        point.coordinate = CLLocationCoordinate2D(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
-        map.addAnnotation(point)
-        
-        //Add location to database
-        let newEntity = NSEntityDescription.insertNewObject(forEntityName: "Pin", into: dataManager)
-        newEntity.setValue(touchMapCoordinate.latitude, forKey: "latitude")
-        newEntity.setValue(touchMapCoordinate.longitude, forKey: "longitude")
-        newEntity.setValue(false, forKey: "hasPhotos")
-        do {
-            try self.dataManager.save()
-            defaultLog.info("Saved to database: lon: \(touchMapCoordinate.longitude), lat: \(touchMapCoordinate.latitude)")
-        } catch {
-            defaultLog.info("Failed to save location.  \(error.localizedDescription)")
+        if sender.state == .began {  //record only the first touch
+            
+            //Add mappoint
+            let point = MKPointAnnotation()
+            let touchPoint = sender.location(in: map)
+            let touchMapCoordinate = map.convert(touchPoint, toCoordinateFrom: map)
+            point.coordinate = CLLocationCoordinate2D(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+            map.addAnnotation(point)
+            
+            //Add location to database
+            let newEntity = NSEntityDescription.insertNewObject(forEntityName: "Pin", into: dataManager)
+            newEntity.setValue(touchMapCoordinate.latitude, forKey: "latitude")
+            newEntity.setValue(touchMapCoordinate.longitude, forKey: "longitude")
+            newEntity.setValue(false, forKey: "hasPhotos")
+            do {
+                try self.dataManager.save()
+                defaultLog.info("Saved to database: lon: \(touchMapCoordinate.longitude), lat: \(touchMapCoordinate.latitude)")
+            } catch {
+                defaultLog.info("Failed to save location.  \(error.localizedDescription)")
+            }
         }
+        
     }
 }
 
@@ -121,6 +124,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        defaultLog.info("MapView pin selected.")
         location = view.annotation!.coordinate
         performSegue(withIdentifier: "picturesViewSegue", sender: self)
     }
